@@ -1,7 +1,7 @@
-FROM resin/%%RESIN_MACHINE_NAME%%-python:3
+FROM resin/%%RESIN_MACHINE_NAME%%-raspbian
 
 RUN apt-get update && apt-get install -yq \
-   sense-hat raspberrypi-bootloader && \
+   python sense-hat raspberrypi-bootloader && \
    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app

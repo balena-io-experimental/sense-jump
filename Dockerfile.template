@@ -1,4 +1,4 @@
-FROM resin/%%RESIN_MACHINE_NAME%%-python:2.7
+FROM resin/%%RESIN_MACHINE_NAME%%-python
 
 RUN apt-get update && apt-get install -yq \
    sense-hat && \

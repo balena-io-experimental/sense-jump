@@ -1,4 +1,4 @@
-FROM resin/%%RESIN_MACHINE_NAME%%-debian:jessie
+FROM resin/raspberry-pi3-debian:jessie
 
 RUN apt-get update && apt-get install -yq \
    python sense-hat raspberrypi-bootloader && \
@@ -6,8 +6,8 @@ RUN apt-get update && apt-get install -yq \
 
 WORKDIR /usr/src/app
 
-COPY . ./
+COPY . .
 
 ENV INITSYSTEM on
 
-CMD modprobe i2c-dev && python src/main.py
+CMD python src/main.py

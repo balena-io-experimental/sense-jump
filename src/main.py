@@ -82,7 +82,8 @@ def check_lose(x, y):
         sleep(.75)
         sense.set_pixels(sum(explode2,[]))
         sleep(.75)
-        sense.show_message("Score: " + str(time/10))
+        sense.show_message("Score:", scroll_speed=.04)
+        sense.show_message(str(time/10), scroll_speed=0.2, text_colour=[0,0,255])
         #wait for joystick input before starting new game
         sense.stick.wait_for_event()
         x,y = reset(x, y)

@@ -2,7 +2,10 @@ from sense_hat import SenseHat
 from time import sleep
 from random import randint
 
+
 sense = SenseHat()
+
+#clear all LEDs before we begin
 sense.clear()
 
 #for better photos, set light to low
@@ -59,11 +62,16 @@ explode2 = [[w,w,w,w,w,r,w,w],
 			[w,r,r,r,l,r,r,w],
 			[w,w,r,r,r,r,r,w]]
 
+#function to handle basic marble movements
 def move_marble(pitch,roll,x,y,jump):
+	#make temporary copies of x and y as we update values and run some checks
 	new_x = x
 	new_y = y
+	#move marble based on pitch and roll, checking for display borders before making changes
 	if 2 < pitch < 179 and x != 0:
 		new_x -= 1
+		#if we are far enough away from the edge, we will allow jumping,
+		#which moves the marble two spaces instead of one without checking for a wall in between
 		if x != 1:
 			new_x -= jump
 	elif 358 > pitch > 179 and x != 7 :
@@ -81,7 +89,11 @@ def move_marble(pitch,roll,x,y,jump):
 	x,y = check_wall(x,y,new_x,new_y)
 	return x,y
 
+#check to see if there is a wall where we want to put the marble
+#changes made by user movement won't go through if there is a wall in the new location
 def check_wall(x,y,new_x,new_y):
+	#we check h here, but because we use '!='' instead of 'is not' it will check 
+	#based on the value and not the variable name
 	if maze[new_y][new_x] != h:
 		return new_x, new_y
 	elif maze[new_y][x] != h:
@@ -91,11 +103,12 @@ def check_wall(x,y,new_x,new_y):
 	return x,y
 
 def lose(x, y):
+	#crash animation
 	sense.set_pixels(sum(explode1,[]))
 	sleep(.75)
 	sense.set_pixels(sum(explode2,[]))
 	sleep(.75)
-	#sense.show_message("Score:", scroll_speed=.04)
+	#show final score based on total time before crash
 	sense.show_message(str(time/10), scroll_speed=0.2, text_colour=[0,0,255])
 	#wait for joystick input before starting new game
 	sense.stick.wait_for_event()
